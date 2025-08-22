@@ -314,6 +314,68 @@
             font-size: 0.9rem;
         }
 
+        /* Cuestionario Médico */
+        .cuestionario-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            overflow: hidden;
+            padding: 2rem;
+        }
+
+        .cuestionario-section {
+            margin-bottom: 2rem;
+        }
+
+        .cuestionario-title {
+            font-size: 1.5rem;
+            color: #2c3e50;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .cuestionario-group {
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            border: 1px solid #ecf0f1;
+            border-radius: 10px;
+        }
+
+        .cuestionario-question {
+            font-weight: 500;
+            margin-bottom: 0.8rem;
+            color: #2c3e50;
+        }
+
+        .cuestionario-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .cuestionario-option {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .form-textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #ecf0f1;
+            border-radius: 10px;
+            font-size: 1rem;
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .form-textarea:focus {
+            border-color: #3498db;
+            outline: none;
+        }
+
         /* Página 3: Carrito/Pago */
         .payment-container {
             display: grid;
@@ -571,15 +633,6 @@
             text-align: center;
         }
 
-        .cuestionario-section {
-            text-align: left;
-            margin: 2rem 0;
-        }
-
-        .cuestionario-question {
-            margin-bottom: 1.5rem;
-        }
-
         /* Responsive */
         @media (max-width: 768px) {
             .payment-container {
@@ -602,505 +655,690 @@
     </style>
 </head>
 <body>
-<div class="controls">
-    <h1>Capturador de Imágenes - RayoSalud</h1>
-    <p>Selecciona una página para visualizar y conviértela en imagen JPG</p>
-
-    <button class="btn-convert" onclick="captureFullPage()">Capturar Página Completa</button>
-    <button class="btn-convert btn-secondary" onclick="captureVisible()">Capturar Parte Visible</button>
-
-    <div class="page-selector">
-        <button class="btn" onclick="showPage('estudios')">Catálogo</button>
-        <button class="btn" onclick="showPage('login')">Login</button>
-        <button class="btn" onclick="showPage('carrito')">Carrito</button>
-        <button class="btn" onclick="showPage('historial')">Historial</button>
-        <button class="btn" onclick="showPage('calendario')">Calendario</button>
+    <div class="controls">
+        <h1>Capturador de Imágenes - RayoSalud</h1>
+        <p>Selecciona una página para visualizar y conviértela en imagen JPG</p>
+        
+        <button class="btn-convert" onclick="captureFullPage()">Capturar Página Completa</button>
+        <button class="btn-convert btn-secondary" onclick="captureVisible()">Capturar Parte Visible</button>
+        
+        <div class="page-selector">
+            <button class="btn" onclick="showPage('estudios')">Catálogo</button>
+            <button class="btn" onclick="showPage('login')">Login</button>
+            <button class="btn" onclick="showPage('cuestionario')">Cuestionario</button>
+            <button class="btn" onclick="showPage('carrito')">Carrito</button>
+            <button class="btn" onclick="showPage('historial')">Historial</button>
+            <button class="btn" onclick="showPage('calendario')">Calendario</button>
+        </div>
     </div>
-</div>
 
-<div class="container" id="capture">
-    <!-- Header -->
-    <header class="header">
-        <div class="logo">RayoSalud</div>
-        <nav class="nav-buttons">
-            <button class="btn cart-btn">
-                🛒 Carrito
-                <span class="cart-count" id="cartCount">2</span>
-            </button>
-            <button class="btn btn-secondary">Mi Historial</button>
-            <button class="btn">Iniciar Sesión</button>
-        </nav>
-    </header>
+    <div class="container" id="capture">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">RayoSalud</div>
+            <nav class="nav-buttons">
+                <button class="btn cart-btn">
+                    🛒 Carrito
+                    <span class="cart-count" id="cartCount">2</span>
+                </button>
+                <button class="btn btn-secondary">Mi Historial</button>
+                <button class="btn">Iniciar Sesión</button>
+            </nav>
+        </header>
 
-    <!-- Página 1: Catálogo de Estudios -->
-    <div class="page active" id="estudios">
-        <h1 class="page-title">Catálogo de Estudios de Rayos X</h1>
-
-        <div class="estudios-grid">
-            <div class="estudio-card">
-                <div class="estudio-img">📷</div>
-                <div class="estudio-content">
-                    <h3 class="estudio-title">Radiografía de Tórax</h3>
-                    <p class="estudio-description">
-                        Estudio que permite evaluar pulmones, corazón y estructuras del tórax.
-                        Útil para detectar neumonías, fracturas costales y problemas cardíacos.
-                    </p>
-                    <div class="estudio-price">$850 MXN</div>
-                    <div class="estudio-restrictions">
-                        <strong>⚠ Restricciones:</strong> No recomendado durante el embarazo
+        <!-- Página 1: Catálogo de Estudios -->
+        <div class="page active" id="estudios">
+            <h1 class="page-title">Catálogo de Estudios de Rayos X</h1>
+            
+            <div class="estudios-grid">
+                <div class="estudio-card">
+                    <div class="estudio-img">📷</div>
+                    <div class="estudio-content">
+                        <h3 class="estudio-title">Radiografía de Tórax</h3>
+                        <p class="estudio-description">
+                            Estudio que permite evaluar pulmones, corazón y estructuras del tórax. 
+                            Útil para detectar neumonías, fracturas costales y problemas cardíacos.
+                        </p>
+                        <div class="estudio-price">$850 MXN</div>
+                        <div class="estudio-restrictions">
+                            <strong>⚠ Restricciones:</strong> No recomendado durante el embarazo
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="estudio-card">
-                <div class="estudio-img">🩻</div>
-                <div class="estudio-content">
-                    <h3 class="estudio-title">Radiografía de Abdomen</h3>
-                    <p class="estudio-description">
-                        Visualización de órganos abdominales, útil para detectar obstrucciones intestinales,
-                        cálculos renales y problemas digestivos.
-                    </p>
-                    <div class="estudio-price">$920 MXN</div>
-                    <div class="estudio-restrictions">
-                        <strong>⚠ Restricciones:</strong> Contraindicado en embarazo, requiere ayuno de 8 horas
+                <div class="estudio-card">
+                    <div class="estudio-img">🩻</div>
+                    <div class="estudio-content">
+                        <h3 class="estudio-title">Radiografía de Abdomen</h3>
+                        <p class="estudio-description">
+                            Visualización de órganos abdominales, útil para detectar obstrucciones intestinales, 
+                            cálculos renales y problemas digestivos.
+                        </p>
+                        <div class="estudio-price">$920 MXN</div>
+                        <div class="estudio-restrictions">
+                            <strong>⚠ Restricciones:</strong> Contraindicado en embarazo, requiere ayuno de 8 horas
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="estudio-card">
-                <div class="estudio-img">🦴</div>
-                <div class="estudio-content">
-                    <h3 class="estudio-title">Radiografía de Columna</h3>
-                    <p class="estudio-description">
-                        Evaluación completa de la columna vertebral para detectar fracturas,
-                        hernias discales, escoliosis y otros problemas de la espalda.
-                    </p>
-                    <div class="estudio-price">$1,150 MXN</div>
-                    <div class="estudio-restrictions">
-                        <strong>⚠ Restricciones:</strong> Evitar durante embarazo, informar sobre implantes metálicos
+                <div class="estudio-card">
+                    <div class="estudio-img">🦴</div>
+                    <div class="estudio-content">
+                        <h3 class="estudio-title">Radiografía de Columna</h3>
+                        <p class="estudio-description">
+                            Evaluación completa de la columna vertebral para detectar fracturas, 
+                            hernias discales, escoliosis y otros problemas de la espalda.
+                        </p>
+                        <div class="estudio-price">$1,150 MXN</div>
+                        <div class="estudio-restrictions">
+                            <strong>⚠ Restricciones:</strong> Evitar durante embarazo, informar sobre implantes metálicos
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="estudio-card">
-                <div class="estudio-img">🦵</div>
-                <div class="estudio-content">
-                    <h3 class="estudio-title">Radiografía de Extremidades</h3>
-                    <p class="estudio-description">
-                        Estudio de brazos, piernas, manos o pies. Ideal para detectar fracturas,
-                        luxaciones y problemas en huesos y articulaciones.
-                    </p>
-                    <div class="estudio-price">$680 MXN</div>
-                    <div class="estudio-restrictions">
-                        <strong>⚠ Restricciones:</strong> Remover joyería metálica de la zona a estudiar
+                <div class="estudio-card">
+                    <div class="estudio-img">🦵</div>
+                    <div class="estudio-content">
+                        <h3 class="estudio-title">Radiografía de Extremidades</h3>
+                        <p class="estudio-description">
+                            Estudio de brazos, piernas, manos o pies. Ideal para detectar fracturas, 
+                            luxaciones y problemas en huesos y articulaciones.
+                        </p>
+                        <div class="estudio-price">$680 MXN</div>
+                        <div class="estudio-restrictions">
+                            <strong>⚠ Restricciones:</strong> Remover joyería metálica de la zona a estudiar
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="estudio-card">
-                <div class="estudio-img">🦷</div>
-                <div class="estudio-content">
-                    <h3 class="estudio-title">Radiografía Dental</h3>
-                    <p class="estudio-description">
-                        Estudio especializado para evaluación dental y maxilar.
-                        Detecta caries, problemas de raíz y estructuras dentales.
-                    </p>
-                    <div class="estudio-price">$450 MXN</div>
-                    <div class="estudio-restrictions">
-                        <strong>⚠ Restricciones:</strong> Precaución en embarazo, informar al técnico
+                <div class="estudio-card">
+                    <div class="estudio-img">🦷</div>
+                    <div class="estudio-content">
+                        <h3 class="estudio-title">Radiografía Dental</h3>
+                        <p class="estudio-description">
+                            Estudio especializado para evaluación dental y maxilar. 
+                            Detecta caries, problemas de raíz y estructuras dentales.
+                        </p>
+                        <div class="estudio-price">$450 MXN</div>
+                        <div class="estudio-restrictions">
+                            <strong>⚠ Restricciones:</strong> Precaución en embarazo, informar al técnico
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="estudio-card">
-                <div class="estudio-img">🧠</div>
-                <div class="estudio-content">
-                    <h3 class="estudio-title">Radiografía de Cráneo</h3>
-                    <p class="estudio-description">
-                        Evaluación de estructuras craneales, útil para detectar fracturas,
-                        tumores y problemas en huesos del cráneo.
-                    </p>
-                    <div class="estudio-price">$980 MXN</div>
-                    <div class="estudio-restrictions">
-                        <strong>⚠ Restricciones:</strong> No usar durante embarazo, remover objetos metálicos
+                <div class="estudio-card">
+                    <div class="estudio-img">🧠</div>
+                    <div class="estudio-content">
+                        <h3 class="estudio-title">Radiografía de Cráneo</h3>
+                        <p class="estudio-description">
+                            Evaluación de estructuras craneales, útil para detectar fracturas, 
+                            tumores y problemas en huesos del cráneo.
+                        </p>
+                        <div class="estudio-price">$980 MXN</div>
+                        <div class="estudio-restrictions">
+                            <strong>⚠ Restricciones:</strong> No usar durante embarazo, remover objetos metálicos
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- Página 2: Login/Registro -->
-    <div class="page" id="login">
-        <div class="auth-container">
-            <div class="auth-tabs">
-                <div class="auth-tab active">Iniciar Sesión</div>
-                <div class="auth-tab">Registrarse</div>
-            </div>
-
-            <!-- Formulario de Login -->
-            <form class="auth-form active">
-                <div class="form-group">
-                    <label class="form-label">Email</label>
-                    <input type="email" class="form-input" placeholder="tu@email.com" value="usuario@ejemplo.com">
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Contraseña</label>
-                    <input type="password" class="form-input" placeholder="••••••••" value="password">
-                </div>
-                <button type="button" class="btn" style="width: 100%;">Iniciar Sesión</button>
-            </form>
-
-            <!-- Formulario de Registro -->
-            <form class="auth-form">
-                <div class="form-group">
-                    <label class="form-label">Nombre Completo</label>
-                    <input type="text" class="form-input" placeholder="Juan Pérez García" value="María González López">
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Email</label>
-                    <input type="email" class="form-input" placeholder="tu@email.com" value="maria@ejemplo.com">
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Teléfono</label>
-                    <input type="tel" class="form-input" placeholder="55-1234-5678" value="55-6789-1234">
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Fecha de Nacimiento</label>
-                    <input type="date" class="form-input" value="1990-05-15">
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Sexo</label>
-                    <select class="form-input">
-                        <option value="">Seleccionar</option>
-                        <option value="femenino" selected>Femenino</option>
-                        <option value="masculino">Masculino</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Contraseña</label>
-                    <input type="password" class="form-input" placeholder="••••••••" value="password">
+        <!-- Página 2: Login/Registro -->
+        <div class="page" id="login">
+            <div class="auth-container">
+                <div class="auth-tabs">
+                    <div class="auth-tab active" onclick="showAuthForm('login')">Iniciar Sesión</div>
+                    <div class="auth-tab" onclick="showAuthForm('register')">Registrarse</div>
                 </div>
 
-                <div class="privacy-notice">
-                    <strong>Aviso de Privacidad</strong><br>
-                    Sus datos personales serán utilizados únicamente para la prestación de servicios médicos,
-                    agendamiento de citas y comunicación relacionada. No compartimos información con terceros
-                    sin su consentimiento expreso.
-                </div>
-
-                <div class="form-checkbox">
-                    <input type="checkbox" id="privacy" checked>
-                    <label for="privacy">Acepto el aviso de privacidad</label>
-                </div>
-
-                <button type="button" class="btn" style="width: 100%;">Registrarse</button>
-            </form>
-        </div>
-    </div>
-
-    <!-- Página 3: Carrito/Pago -->
-    <div class="page" id="carrito">
-        <h1 class="page-title">Carrito de Compras</h1>
-
-        <div class="payment-container">
-            <div class="cart-section">
-                <h2 style="margin-bottom: 1.5rem;">Estudios Seleccionados</h2>
-                <div>
-                    <div class="cart-item">
-                        <div>
-                            <h4>Radiografía de Tórax</h4>
-                            <p style="color: #27ae60; font-weight: bold;">$850 MXN</p>
-                        </div>
-                        <div class="quantity-controls">
-                            <button class="quantity-btn">−</button>
-                            <span style="margin: 0 1rem;">1</span>
-                            <button class="quantity-btn">+</button>
-                            <button class="btn btn-danger btn-small" style="margin-left: 1rem;">
-                                🗑 Eliminar
-                            </button>
-                        </div>
-                    </div>
-                    <div class="cart-item">
-                        <div>
-                            <h4>Radiografía Dental</h4>
-                            <p style="color: #27ae60; font-weight: bold;">$450 MXN</p>
-                        </div>
-                        <div class="quantity-controls">
-                            <button class="quantity-btn">−</button>
-                            <span style="margin: 0 1rem;">1</span>
-                            <button class="quantity-btn">+</button>
-                            <button class="btn btn-danger btn-small" style="margin-left: 1rem;">
-                                🗑 Eliminar
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div style="border-top: 2px solid #dee2e6; padding-top: 1rem; margin-top: 1rem;">
-                    <div style="display: flex; justify-content: space-between; font-size: 1.2rem; font-weight: bold;">
-                        <span>Total:</span>
-                        <span>$1,300 MXN</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="payment-form">
-                <h2 style="margin-bottom: 1.5rem;">Información de Pago</h2>
-
-                <div class="form-group">
-                    <label class="form-label">Número de Tarjeta</label>
-                    <div class="card-input">
-                        <input type="text" class="form-input" placeholder="1234 5678 9012 3456" value="4242 4242 4242 4242">
-                        <div class="card-icons">
-                            <div class="card-icon" style="background: #1a73e8;"></div>
-                            <div class="card-icon" style="background: #eb001b;"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                <!-- Formulario de Login -->
+                <form class="auth-form active" id="loginForm">
                     <div class="form-group">
-                        <label class="form-label">Fecha de Vencimiento</label>
-                        <input type="text" class="form-input" placeholder="MM/AA" value="12/25">
+                        <label class="form-label">Email</label>
+                        <input type="email" class="form-input" placeholder="tu@email.com" value="usuario@ejemplo.com">
                     </div>
                     <div class="form-group">
-                        <label class="form-label">CVV</label>
-                        <input type="text" class="form-input" placeholder="123" value="123">
+                        <label class="form-label">Contraseña</label>
+                        <input type="password" class="form-input" placeholder="••••••••" value="password">
+                    </div>
+                    <button type="button" class="btn" style="width: 100%;" onclick="loginUser()">Iniciar Sesión</button>
+                </form>
+
+                <!-- Formulario de Registro -->
+                <form class="auth-form" id="registerForm">
+                    <div class="form-group">
+                        <label class="form-label">Nombre Completo</label>
+                        <input type="text" class="form-input" placeholder="Juan Pérez García" value="María González López">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Email</label>
+                        <input type="email" class="form-input" placeholder="tu@email.com" value="maria@ejemplo.com">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Teléfono</label>
+                        <input type="tel" class="form-input" placeholder="55-1234-5678" value="55-6789-1234">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Fecha de Nacimiento</label>
+                        <input type="date" class="form-input" value="1990-05-15">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Sexo</label>
+                        <select class="form-input">
+                            <option value="">Seleccionar</option>
+                            <option value="femenino" selected>Femenino</option>
+                            <option value="masculino">Masculino</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Contraseña</label>
+                        <input type="password" class="form-input" placeholder="••••••••" value="password">
+                    </div>
+                    
+                    <div class="privacy-notice">
+                        <strong>Aviso de Privacidad</strong><br>
+                        Sus datos personales serán utilizados únicamente para la prestación de servicios médicos, 
+                        agendamiento de citas y comunicación relacionada. No compartimos información con terceros 
+                        sin su consentimiento expreso.
+                    </div>
+                    
+                    <div class="form-checkbox">
+                        <input type="checkbox" id="privacy" checked>
+                        <label for="privacy">Acepto el aviso de privacidad</label>
+                    </div>
+                    
+                    <button type="button" class="btn" style="width: 100%;" onclick="registerUser()">Registrarse</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Página 3: Cuestionario Médico -->
+        <div class="page" id="cuestionario">
+            <h1 class="page-title">Cuestionario Médico</h1>
+            
+            <div class="cuestionario-container">
+                <p style="margin-bottom: 2rem; text-align: center;">Para brindarte el mejor servicio, necesitamos conocer tu historial médico.</p>
+                
+                <form id="medicalForm">
+                    <div class="cuestionario-section">
+                        <h3 class="cuestionario-title">Información Médica General</h3>
+                        
+                        <div class="cuestionario-group">
+                            <div class="cuestionario-question">¿Tiene alguna alergia conocida?</div>
+                            <div class="cuestionario-options">
+                                <div class="cuestionario-option">
+                                    <input type="radio" id="alergia_si" name="alergia" value="si">
+                                    <label for="alergia_si">Sí</label>
+                                </div>
+                                <div class="cuestionario-option">
+                                    <input type="radio" id="alergia_no" name="alergia" value="no" checked>
+                                    <label for="alergia_no">No</label>
+                                </div>
+                            </div>
+                            <div class="form-group" id="alergia_detalle" style="display: none; margin-top: 1rem;">
+                                <label class="form-label">Especifique sus alergias</label>
+                                <input type="text" class="form-input" placeholder="Ej: Penicilina, mariscos, etc.">
+                            </div>
+                        </div>
+                        
+                        <div class="cuestionario-group">
+                            <div class="cuestionario-question">¿Toma actualmente algún medicamento?</div>
+                            <div class="cuestionario-options">
+                                <div class="cuestionario-option">
+                                    <input type="radio" id="medicamento_si" name="medicamento" value="si">
+                                    <label for="medicamento_si">Sí</label>
+                                </div>
+                                <div class="cuestionario-option">
+                                    <input type="radio" id="medicamento_no" name="medicamento" value="no" checked>
+                                    <label for="medicamento_no">No</label>
+                                </div>
+                            </div>
+                            <div class="form-group" id="medicamento_detalle" style="display: none; margin-top: 1rem;">
+                                <label class="form-label">Lista de medicamentos y dosis</label>
+                                <textarea class="form-textarea" placeholder="Nombre del medicamento, dosis y frecuencia..."></textarea>
+                            </div>
+                        </div>
+                        
+                        <div class="cuestionario-group">
+                            <div class="cuestionario-question">¿Tiene alguna condición médica diagnosticada?</div>
+                            <div class="cuestionario-options">
+                                <div class="cuestionario-option">
+                                    <input type="radio" id="condicion_si" name="condicion" value="si">
+                                    <label for="condicion_si">Sí</label>
+                                </div>
+                                <div class="cuestionario-option">
+                                    <input type="radio" id="condicion_no" name="condicion" value="no" checked>
+                                    <label for="condicion_no">No</label>
+                                </div>
+                            </div>
+                            <div class="form-group" id="condicion_detalle" style="display: none; margin-top: 1rem;">
+                                <label class="form-label">Especifique sus condiciones médicas</label>
+                                <textarea class="form-textarea" placeholder="Diabetes, hipertensión, asma, etc."></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="cuestionario-section">
+                        <h3 class="cuestionario-title">Historial Quirúrgico</h3>
+                        
+                        <div class="cuestionario-group">
+                            <div class="cuestionario-question">¿Se ha sometido a alguna cirugía?</div>
+                            <div class="cuestionario-options">
+                                <div class="cuestionario-option">
+                                    <input type="radio" id="cirugia_si" name="cirugia" value="si">
+                                    <label for="cirugia_si">Sí</label>
+                                </div>
+                                <div class="cuestionario-option">
+                                    <input type="radio" id="cirugia_no" name="cirugia" value="no" checked>
+                                    <label for="cirugia_no">No</label>
+                                </div>
+                            </div>
+                            <div class="form-group" id="cirugia_detalle" style="display: none; margin-top: 1rem;">
+                                <label class="form-label">Detalles de cirugías previas</label>
+                                <textarea class="form-textarea" placeholder="Tipo de cirugía, fecha y hospital..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="cuestionario-section">
+                        <h3 class="cuestionario-title">Información Adicional</h3>
+                        
+                        <div class="cuestionario-group">
+                            <div class="cuestionario-question">¿Es fumador?</div>
+                            <div class="cuestionario-options">
+                                <div class="cuestionario-option">
+                                    <input type="radio" id="fumador_si" name="fumador" value="si">
+                                    <label for="fumador_si">Sí</label>
+                                </div>
+                                <div class="cuestionario-option">
+                                    <input type="radio" id="fumador_no" name="fumador" value="no" checked>
+                                    <label for="fumador_no">No</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="cuestionario-group">
+                            <div class="cuestionario-question">¿Consume alcohol?</div>
+                            <div class="cuestionario-options">
+                                <div class="cuestionario-option">
+                                    <input type="radio" id="alcohol_si" name="alcohol" value="si">
+                                    <label for="alcohol_si">Sí</label>
+                                </div>
+                                <div class="cuestionario-option">
+                                    <input type="radio" id="alcohol_no" name="alcohol" value="no" checked>
+                                    <label for="alcohol_no">No</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Observaciones adicionales</label>
+                            <textarea class="form-textarea" placeholder="Otra información médica que considere relevante..."></textarea>
+                        </div>
+                    </div>
+                    
+                    <button type="button" class="btn" style="width: 100%;" onclick="submitMedicalForm()">Enviar Cuestionario</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Página 4: Carrito/Pago -->
+        <div class="page" id="carrito">
+            <h1 class="page-title">Carrito de Compras</h1>
+            
+            <div class="payment-container">
+                <div class="cart-section">
+                    <h2 style="margin-bottom: 1.5rem;">Estudios Seleccionados</h2>
+                    <div>
+                        <div class="cart-item">
+                            <div>
+                                <h4>Radiografía de Tórax</h4>
+                                <p style="color: #27ae60; font-weight: bold;">$850 MXN</p>
+                            </div>
+                            <div class="quantity-controls">
+                                <button class="quantity-btn">−</button>
+                                <span style="margin: 0 1rem;">1</span>
+                                <button class="quantity-btn">+</button>
+                                <button class="btn btn-danger btn-small" style="margin-left: 1rem;">
+                                    🗑 Eliminar
+                                </button>
+                            </div>
+                        </div>
+                        <div class="cart-item">
+                            <div>
+                                <h4>Radiografía Dental</h4>
+                                <p style="color: #27ae60; font-weight: bold;">$450 MXN</p>
+                            </div>
+                            <div class="quantity-controls">
+                                <button class="quantity-btn">−</button>
+                                <span style="margin: 0 1rem;">1</span>
+                                <button class="quantity-btn">+</button>
+                                <button class="btn btn-danger btn-small" style="margin-left: 1rem;">
+                                    🗑 Eliminar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="border-top: 2px solid #dee2e6; padding-top: 1rem; margin-top: 1rem;">
+                        <div style="display: flex; justify-content: space-between; font-size: 1.2rem; font-weight: bold;">
+                            <span>Total:</span>
+                            <span>$1,300 MXN</span>
+                        </div>
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label class="form-label">Nombre del Titular</label>
-                    <input type="text" class="form-input" placeholder="Juan Pérez García" value="María González López">
+                <div class="payment-form">
+                    <h2 style="margin-bottom: 1.5rem;">Información de Pago</h2>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Número de Tarjeta</label>
+                        <div class="card-input">
+                            <input type="text" class="form-input" placeholder="1234 5678 9012 3456" value="4242 4242 4242 4242">
+                            <div class="card-icons">
+                                <div class="card-icon" style="background: #1a73e8;"></div>
+                                <div class="card-icon" style="background: #eb001b;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                        <div class="form-group">
+                            <label class="form-label">Fecha de Vencimiento</label>
+                            <input type="text" class="form-input" placeholder="MM/AA" value="12/25">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">CVV</label>
+                            <input type="text" class="form-input" placeholder="123" value="123">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Nombre del Titular</label>
+                        <input type="text" class="form-input" placeholder="Juan Pérez García" value="María González López">
+                    </div>
+                    
+                    <div class="form-checkbox">
+                        <input type="checkbox" id="saveCard" checked>
+                        <label for="saveCard">Guardar información para futuros pagos</label>
+                    </div>
+                    
+                    <button class="btn" style="width: 100%;">Procesar Pago</button>
                 </div>
-
-                <div class="form-checkbox">
-                    <input type="checkbox" id="saveCard" checked>
-                    <label for="saveCard">Guardar información para futuros pagos</label>
-                </div>
-
-                <button class="btn" style="width: 100%;">Procesar Pago</button>
             </div>
         </div>
-    </div>
 
-    <!-- Página 4: Mi Historial -->
-    <div class="page" id="historial">
-        <h1 class="page-title">Mi Historial de Estudios</h1>
-
-        <div class="history-list">
-            <div class="history-item">
-                <div class="history-info">
-                    <h3 class="history-title">Radiografía de Tórax</h3>
-                    <p class="history-date">Pagado: 15/08/2025 | $850 MXN</p>
-                </div>
-                <div>
+        <!-- Página 5: Mi Historial -->
+        <div class="page" id="historial">
+            <h1 class="page-title">Mi Historial de Estudios</h1>
+            
+            <div class="history-list">
+                <div class="history-item">
+                    <div class="history-info">
+                        <h3 class="history-title">Radiografía de Tórax</h3>
+                        <p class="history-date">Pagado: 15/08/2025 | $850 MXN</p>
+                    </div>
+                    <div>
                         <span class="status-badge status-scheduled">
                             Con Cita Programada
                         </span>
+                    </div>
                 </div>
-            </div>
-            <div class="history-item">
-                <div class="history-info">
-                    <h3 class="history-title">Radiografía Dental</h3>
-                    <p class="history-date">Pagado: 15/08/2025 | $450 MXN</p>
-                </div>
-                <div>
+                <div class="history-item">
+                    <div class="history-info">
+                        <h3 class="history-title">Radiografía Dental</h3>
+                        <p class="history-date">Pagado: 15/08/2025 | $450 MXN</p>
+                    </div>
+                    <div>
                         <span class="status-badge status-paid">
                             Sin Cita
                         </span>
-                    <button class="btn btn-small">
-                        📅 Programar Cita
-                    </button>
+                        <button class="btn btn-small">
+                            📅 Programar Cita
+                        </button>
+                    </div>
                 </div>
-            </div>
-            <div class="history-item">
-                <div class="history-info">
-                    <h3 class="history-title">Radiografía de Columna</h3>
-                    <p class="history-date">Pagado: 10/08/2025 | $1,150 MXN</p>
-                </div>
-                <div>
+                <div class="history-item">
+                    <div class="history-info">
+                        <h3 class="history-title">Radiografía de Columna</h3>
+                        <p class="history-date">Pagado: 10/08/2025 | $1,150 MXN</p>
+                    </div>
+                    <div>
                         <span class="status-badge status-scheduled">
                             Con Cita Programada
                         </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Página 6: Calendario -->
+        <div class="page" id="calendario">
+            <h1 class="page-title">Programar Cita</h1>
+            
+            <div class="calendar-container">
+                <div class="calendar-section">
+                    <div class="calendar-header">
+                        <h2>Seleccionar Fecha</h2>
+                        <div class="calendar-nav">
+                            <button class="btn">← Anterior</button>
+                            <span>Agosto 2025</span>
+                            <button class="btn">Siguiente →</button>
+                        </div>
+                    </div>
+                    
+                    <div class="calendar-grid">
+                        <div style="font-weight: bold; text-align: center; padding: 0.5rem;">Dom</div>
+                        <div style="font-weight: bold; text-align: center; padding: 0.5rem;">Lun</div>
+                        <div style="font-weight: bold; text-align: center; padding: 0.5rem;">Mar</div>
+                        <div style="font-weight: bold; text-align: center; padding: 0.5rem;">Mié</div>
+                        <div style="font-weight: bold; text-align: center; padding: 0.5rem;">Jue</div>
+                        <div style="font-weight: bold; text-align: center; padding: 0.5rem;">Vie</div>
+                        <div style="font-weight: bold; text-align: center; padding: 0.5rem;">Sáb</div>
+                        
+                        <!-- Días del mes -->
+                        <div class="calendar-day"></div>
+                        <div class="calendar-day"></div>
+                        <div class="calendar-day"></div>
+                        <div class="calendar-day"></div>
+                        <div class="calendar-day">1</div>
+                        <div class="calendar-day">2</div>
+                        <div class="calendar-day">3</div>
+                        
+                        <div class="calendar-day">4</div>
+                        <div class="calendar-day">5</div>
+                        <div class="calendar-day">6</div>
+                        <div class="calendar-day">7</div>
+                        <div class="calendar-day">8</div>
+                        <div class="calendar-day">9</div>
+                        <div class="calendar-day">10</div>
+                        
+                        <div class="calendar-day">11</div>
+                        <div class="calendar-day">12</div>
+                        <div class="calendar-day">13</div>
+                        <div class="calendar-day">14</div>
+                        <div class="calendar-day available">15</div>
+                        <div class="calendar-day available">16</div>
+                        <div class="calendar-day">17</div>
+                        
+                        <div class="calendar-day">18</div>
+                        <div class="calendar-day available">19</div>
+                        <div class="calendar-day available selected">20</div>
+                        <div class="calendar-day available">21</div>
+                        <div class="calendar-day available">22</div>
+                        <div class="calendar-day">23</div>
+                        <div class="calendar-day">24</div>
+                        
+                        <div class="calendar-day">25</div>
+                        <div class="calendar-day">26</div>
+                        <div class="calendar-day">27</div>
+                        <div class="calendar-day">28</div>
+                        <div class="calendar-day">29</div>
+                        <div class="calendar-day">30</div>
+                        <div class="calendar-day">31</div>
+                    </div>
+                    
+                    <div>
+                        <h3>Horarios Disponibles</h3>
+                        <div class="time-slots">
+                            <div class="time-slot">08:00 AM</div>
+                            <div class="time-slot">08:30 AM</div>
+                            <div class="time-slot">09:00 AM</div>
+                            <div class="time-slot">09:30 AM</div>
+                            <div class="time-slot selected">10:00 AM</div>
+                            <div class="time-slot">10:30 AM</div>
+                            <div class="time-slot">11:00 AM</div>
+                            <div class="time-slot">11:30 AM</div>
+                            <div class="time-slot">12:00 PM</div>
+                        </div>
+                        
+                        <button class="btn" style="width: 100%; margin-top: 2rem;">
+                            Confirmar Cita
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="my-appointments">
+                    <h2 style="margin-bottom: 1.5rem;">Mis Citas Programadas</h2>
+                    <div>
+                        <div class="appointment-item">
+                            <h4>Radiografía de Tórax</h4>
+                            <p><strong>Fecha:</strong> 22/08/2025</p>
+                            <p><strong>Hora:</strong> 09:00 AM</p>
+                            <p><strong>Estado:</strong> Programada</p>
+                            <div class="appointment-actions">
+                                <button class="btn btn-danger btn-small">
+                                    Cancelar Cita
+                                </button>
+                                <button class="btn btn-warning btn-small">
+                                    Cambiar Cita
+                                </button>
+                            </div>
+                        </div>
+                        <div class="appointment-item">
+                            <h4>Radiografía de Columna</h4>
+                            <p><strong>Fecha:</strong> 25/08/2025</p>
+                            <p><strong>Hora:</strong> 11:30 AM</p>
+                            <p><strong>Estado:</strong> Programada</p>
+                            <div class="appointment-actions">
+                                <button class="btn btn-danger btn-small">
+                                    Cancelar Cita
+                                </button>
+                                <button class="btn btn-warning btn-small">
+                                    Cambiar Cita
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Página 5: Calendario -->
-    <div class="page" id="calendario">
-        <h1 class="page-title">Programar Cita</h1>
+    <script>
+        // Funciones de navegación
+        function showPage(pageId) {
+            // Ocultar todas las páginas
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Mostrar la página seleccionada
+            document.getElementById(pageId).classList.add('active');
+        }
 
-        <div class="calendar-container">
-            <div class="calendar-section">
-                <div class="calendar-header">
-                    <h2>Seleccionar Fecha</h2>
-                    <div class="calendar-nav">
-                        <button class="btn">← Anterior</button>
-                        <span>Agosto 2025</span>
-                        <button class="btn">Siguiente →</button>
-                    </div>
-                </div>
+        // Funciones de formularios de autenticación
+        function showAuthForm(formType) {
+            // Cambiar pestañas activas
+            document.querySelectorAll('.auth-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            if (formType === 'login') {
+                document.querySelectorAll('.auth-tab')[0].classList.add('active');
+                document.getElementById('loginForm').classList.add('active');
+                document.getElementById('registerForm').classList.remove('active');
+            } else {
+                document.querySelectorAll('.auth-tab')[1].classList.add('active');
+                document.getElementById('loginForm').classList.remove('active');
+                document.getElementById('registerForm').classList.add('active');
+            }
+        }
 
-                <div class="calendar-grid">
-                    <div style="font-weight: bold; text-align: center; padding: 0.5rem;">Dom</div>
-                    <div style="font-weight: bold; text-align: center; padding: 0.5rem;">Lun</div>
-                    <div style="font-weight: bold; text-align: center; padding: 0.5rem;">Mar</div>
-                    <div style="font-weight: bold; text-align: center; padding: 0.5rem;">Mié</div>
-                    <div style="font-weight: bold; text-align: center; padding: 0.5rem;">Jue</div>
-                    <div style="font-weight: bold; text-align: center; padding: 0.5rem;">Vie</div>
-                    <div style="font-weight: bold; text-align: center; padding: 0.5rem;">Sáb</div>
+        // Funciones de usuario
+        function loginUser() {
+            alert('Inicio de sesión exitoso. Redirigiendo al catálogo...');
+            showPage('estudios');
+        }
 
-                    <!-- Días del mes -->
-                    <div class="calendar-day"></div>
-                    <div class="calendar-day"></div>
-                    <div class="calendar-day"></div>
-                    <div class="calendar-day"></div>
-                    <div class="calendar-day">1</div>
-                    <div class="calendar-day">2</div>
-                    <div class="calendar-day">3</div>
+        function registerUser() {
+            alert('Registro exitoso. Complete su cuestionario médico...');
+            showPage('cuestionario');
+        }
 
-                    <div class="calendar-day">4</div>
-                    <div class="calendar-day">5</div>
-                    <div class="calendar-day">6</div>
-                    <div class="calendar-day">7</div>
-                    <div class="calendar-day">8</div>
-                    <div class="calendar-day">9</div>
-                    <div class="calendar-day">10</div>
+        function submitMedicalForm() {
+            alert('Cuestionario médico guardado exitosamente. Redirigiendo al catálogo...');
+            showPage('estudios');
+        }
 
-                    <div class="calendar-day">11</div>
-                    <div class="calendar-day">12</div>
-                    <div class="calendar-day">13</div>
-                    <div class="calendar-day">14</div>
-                    <div class="calendar-day available">15</div>
-                    <div class="calendar-day available">16</div>
-                    <div class="calendar-day">17</div>
-
-                    <div class="calendar-day">18</div>
-                    <div class="calendar-day available">19</div>
-                    <div class="calendar-day available selected">20</div>
-                    <div class="calendar-day available">21</div>
-                    <div class="calendar-day available">22</div>
-                    <div class="calendar-day">23</div>
-                    <div class="calendar-day">24</div>
-
-                    <div class="calendar-day">25</div>
-                    <div class="calendar-day">26</div>
-                    <div class="calendar-day">27</div>
-                    <div class="calendar-day">28</div>
-                    <div class="calendar-day">29</div>
-                    <div class="calendar-day">30</div>
-                    <div class="calendar-day">31</div>
-                </div>
-
-                <div>
-                    <h3>Horarios Disponibles</h3>
-                    <div class="time-slots">
-                        <div class="time-slot">08:00 AM</div>
-                        <div class="time-slot">08:30 AM</div>
-                        <div class="time-slot">09:00 AM</div>
-                        <div class="time-slot">09:30 AM</div>
-                        <div class="time-slot selected">10:00 AM</div>
-                        <div class="time-slot">10:30 AM</div>
-                        <div class="time-slot">11:00 AM</div>
-                        <div class="time-slot">11:30 AM</div>
-                        <div class="time-slot">12:00 PM</div>
-                    </div>
-
-                    <button class="btn" style="width: 100%; margin-top: 2rem;">
-                        Confirmar Cita
-                    </button>
-                </div>
-            </div>
-
-            <div class="my-appointments">
-                <h2 style="margin-bottom: 1.5rem;">Mis Citas Programadas</h2>
-                <div>
-                    <div class="appointment-item">
-                        <h4>Radiografía de Tórax</h4>
-                        <p><strong>Fecha:</strong> 22/08/2025</p>
-                        <p><strong>Hora:</strong> 09:00 AM</p>
-                        <p><strong>Estado:</strong> Programada</p>
-                        <div class="appointment-actions">
-                            <button class="btn btn-danger btn-small">
-                                Cancelar Cita
-                            </button>
-                            <button class="btn btn-warning btn-small">
-                                Cambiar Cita
-                            </button>
-                        </div>
-                    </div>
-                    <div class="appointment-item">
-                        <h4>Radiografía de Columna</h4>
-                        <p><strong>Fecha:</strong> 25/08/2025</p>
-                        <p><strong>Hora:</strong> 11:30 AM</p>
-                        <p><strong>Estado:</strong> Programada</p>
-                        <div class="appointment-actions">
-                            <button class="btn btn-danger btn-small">
-                                Cancelar Cita
-                            </button>
-                            <button class="btn btn-warning btn-small">
-                                Cambiar Cita
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script>
-    // Funciones de navegación
-    function showPage(pageId) {
-        // Ocultar todas las páginas
-        document.querySelectorAll('.page').forEach(page => {
-            page.classList.remove('active');
+        // Mostrar/ocultar campos detallados en el cuestionario
+        document.addEventListener('DOMContentLoaded', function() {
+            // Configurar eventos para mostrar campos detallados
+            document.getElementById('alergia_si').addEventListener('change', function() {
+                document.getElementById('alergia_detalle').style.display = this.checked ? 'block' : 'none';
+            });
+            
+            document.getElementById('medicamento_si').addEventListener('change', function() {
+                document.getElementById('medicamento_detalle').style.display = this.checked ? 'block' : 'none';
+            });
+            
+            document.getElementById('condicion_si').addEventListener('change', function() {
+                document.getElementById('condicion_detalle').style.display = this.checked ? 'block' : 'none';
+            });
+            
+            document.getElementById('cirugia_si').addEventListener('change', function() {
+                document.getElementById('cirugia_detalle').style.display = this.checked ? 'block' : 'none';
+            });
         });
-        
-        // Mostrar la página seleccionada
-        document.getElementById(pageId).classList.add('active');
-    }
 
-    // Funciones de captura de pantalla
-    function captureFullPage() {
-        alert('La captura de toda la página comenzará. Por favor espere unos segundos...');
-        
-        html2canvas(document.getElementById('capture'), {
-            scrollY: -window.scrollY,
-            scrollX: -window.scrollX,
-            windowWidth: document.getElementById('capture').scrollWidth,
-            windowHeight: document.getElementById('capture').scrollHeight
-        }).then(function(canvas) {
-            downloadImage(canvas, 'rayosalud-pagina-completa.jpg');
+        // Funciones de captura de pantalla
+        function captureFullPage() {
+            alert('La captura de toda la página comenzará. Por favor espere unos segundos...');
+            
+            html2canvas(document.getElementById('capture'), {
+                scrollY: -window.scrollY,
+                scrollX: -window.scrollX,
+                windowWidth: document.getElementById('capture').scrollWidth,
+                windowHeight: document.getElementById('capture').scrollHeight
+            }).then(function(canvas) {
+                downloadImage(canvas, 'rayosalud-pagina-completa.jpg');
+            });
+        }
+
+        function captureVisible() {
+            alert('Capturando la parte visible de la página...');
+            
+            html2canvas(document.getElementById('capture')).then(function(canvas) {
+                downloadImage(canvas, 'rayosalud-parte-visible.jpg');
+            });
+        }
+
+        function downloadImage(canvas, filename) {
+            // Crear un enlace para descargar la imagen
+            var link = document.createElement('a');
+            link.download = filename;
+            link.href = canvas.toDataURL('image/jpeg', 0.9);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            alert('¡Imagen descargada con éxito!');
+        }
+
+        // Inicialización
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mostrar la página de catálogo por defecto
+            showPage('estudios');
         });
-    }
-
-    function captureVisible() {
-        alert('Capturando la parte visible de la página...');
-        
-        html2canvas(document.getElementById('capture')).then(function(canvas) {
-            downloadImage(canvas, 'rayosalud-parte-visible.jpg');
-        });
-    }
-
-    function downloadImage(canvas, filename) {
-        // Crear un enlace para descargar la imagen
-        var link = document.createElement('a');
-        link.download = filename;
-        link.href = canvas.toDataURL('image/jpeg', 0.9);
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        
-        alert('¡Imagen descargada con éxito!');
-    }
-
-    // Inicialización
-    document.addEventListener('DOMContentLoaded', function() {
-        // Mostrar la página de catálogo por defecto
-        showPage('estudios');
-    });
-</script>
+    </script>
 </body>
 </html>
